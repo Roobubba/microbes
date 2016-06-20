@@ -1,0 +1,98 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+
+.center {
+  text-align: center;
+}
+
+h1, h2, h3, h4 {
+  line-height: 1;
+  
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+h2 {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+}
+
+.left {
+  text-align: left;
+  letter-spacing: 0.5px;
+}
+
+.footer {
+  margin-top: 25px;
+  border-top: 1px solid #efefef;
+}
+
+.chef_info {
+  margin-top: 10px;
+}
+
+.gravatar {
+  border-radius: 10px;
+}
+
+.well {
+  background-color: #EDEDED;
+}
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #d2d2d2;
+  border-radius: 5px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+input {
+  height: auto !important;
+}
+
+textarea {
+  resize: vertical;
+}
+
+span.picture {
+  margin-top: 10px;
+  input {
+    border: 0;
+  }
+}
+
+.show_recipe {
+  margin: 10px 10px 10px 10px;
+}
+
+.input_checkbox input {
+  width: auto !important;
+}
+
+.block1 {
+  background-color: orange;
+}
+.block2 {
+  background-color: blue;
+}
+.nopad {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+.valign {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+.btn {
+  margin-bottom: 10px;
+}

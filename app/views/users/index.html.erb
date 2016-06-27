@@ -1,0 +1,32 @@
+<%= render 'shared/page_title', title: "All Users" %>
+
+<ul class="nav nav-tabs">
+  <li>
+    <%= link_to "Microbes", microbes_path %>
+  </li>
+  <li  class='active'>
+    <%= link_to "Users", users_path %>
+  </li>
+</ul>
+
+<%= will_paginate %>
+<br>
+
+<% @users.each do |user| %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <p>User Pic Here</p>
+      </div>
+      <div class="col-md-10 well">
+        <h4><%= link_to user.username, user_path(user) %></h4>
+        <p>UniqueID: <%= user.uniqueid %></p>
+
+      </div>
+
+    </div>
+    <hr/>
+  </div>
+<% end %>
+
+<%= will_paginate %>

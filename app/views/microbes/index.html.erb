@@ -1,0 +1,32 @@
+<%= render 'shared/page_title', title: "All Microbes" %>
+
+<ul class="nav nav-tabs">
+  <li class='active'>
+    <%= link_to "Microbes", microbes_path %>
+  </li>
+  <li>
+    <%= link_to "Users", users_path %>
+  </li>
+</ul>
+
+<%= will_paginate %>
+<br>
+
+<% @microbes.each do |microbe| %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <p>Microbe Pic Here</p>
+      </div>
+      <div class="col-md-10 well">
+        <h4><%= link_to microbe.name, microbe_path(microbe) %></h4>
+        <p><%= microbe.link %></p>
+
+      </div>
+
+    </div>
+    <hr/>
+  </div>
+<% end %>
+
+<%= will_paginate %>

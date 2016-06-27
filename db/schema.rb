@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160620125951) do
+ActiveRecord::Schema.define(version: 20160623114421) do
 
   create_table "microbes", force: :cascade do |t|
     t.string "assetbundle"
     t.string "assetbundle_fingerprint"
     t.string "assetname"
     t.string "link"
+    t.string "name"
   end
 
   create_table "users", force: :cascade do |t|
@@ -26,6 +27,7 @@ ActiveRecord::Schema.define(version: 20160620125951) do
     t.integer  "microbes"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "uniqueid"
   end
 
 end

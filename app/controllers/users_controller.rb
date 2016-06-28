@@ -14,12 +14,13 @@ class UsersController < ApplicationController
   
   def export_to_txt
     
-    send_data @user.microbes, type: 'text/plain; charset=UTF-8', disposition: 'attachment; filename=mlist.txt'
+    send_data @user.microbes, type: 'text/plain; charset=UTF-8', disposition: 'inline' #; filename=mlist.txt'
     
   end
   
   def get_user_id
     @user = User.find_by(uniqueid: params[:uniqueid])
+    send_data @user.id, type: 'text/plain; charset=UTF-8', disposition: 'inline'
   end
 
 

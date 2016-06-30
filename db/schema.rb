@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160623114421) do
+ActiveRecord::Schema.define(version: 20160629160746) do
 
   create_table "microbes", force: :cascade do |t|
     t.string "assetbundle"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20160623114421) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "uniqueid"
+    t.string   "email"
+    t.boolean  "admin",           default: false
   end
 
 end

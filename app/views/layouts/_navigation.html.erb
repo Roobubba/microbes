@@ -11,7 +11,32 @@
   	</div>
   	
   	
-<!-- NAVBAR STUFF TO GO IN HERE -->
+ 	<div class="collapse navbar-collapse" id="navbar-collapse-1">
+			<ul class="nav navbar-nav">	
+				<li><%= link_to "View Microbes", microbes_path %></li>
+  	  </ul>
+  	  <div class="pull-right">
+  	  	<ul class="nav navbar-nav nav-item">
+  	  		<% if !logged_in? %>
+  	  			<li>
+  	  				<%= link_to "Log In", login_path %>
+  	  			</li>
+  	  		<% else %>
+  	  			<li class="dropdown">
+  	  				<%= link_to '#', class: "dropdown-toggle", "data-toggle" => "dropdown" do %>
+  	  					<%= current_user.username %><b class="caret"></b>
+  	  				<% end %>
+  	  					<ul class="dropdown-menu pull-right">
+  	  						<li><%= link_to "View profile", user_path(current_user) %></li>
+  	  						<li><%= link_to "Edit profile", edit_user_path(current_user) %></li>
+  	  						<li class="divider"></li>
+  	  						<li><%= link_to "Log Out", logout_path %></li>
+  	  				</ul>
+  	  			</li>
+  	  		<% end %>
+  			</ul>
+ 			</div>
+  	</div><!-- /.navbar-collapse -->
   	
   	
   	

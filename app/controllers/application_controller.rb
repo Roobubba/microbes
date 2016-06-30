@@ -20,10 +20,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def can_access(microbe)
-    
-  end
-  
   private 
   
     def redirect_back_or_failsafe(user_loc)

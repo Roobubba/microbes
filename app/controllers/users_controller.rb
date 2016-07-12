@@ -1,9 +1,10 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:edit, :update, :show, :export]
+  before_action :set_user, only: [:edit, :update, :show]
   before_action :require_same_user, only: [:edit, :update]
-  #before_action :require_user, except: [:show, :index, :export, :get_user_id]
-  #before_action :admin_user, only: :destroy
+  before_action :require_user, except: [:show, :index, :export, :get_user_id]
+  before_action :admin_user, only: [:destroy]
+  
 
   def index
     @users = User.paginate(page: params[:page], per_page: 10)
@@ -42,21 +43,17 @@ class UsersController < ApplicationController
     end
   end
   
-  def export
-    
-    send_data @user.microbes, type: 'text/plain; charset=UTF-8', disposition: 'inline' #; filename=mlist.txt'
-    
-  end
-  
   def get_user_id
     @user = User.find_by(uniqueid: params[:uniqueid])
-    send_data @user.id, type: 'text/plain; charset=UTF-8', disposition: 'inline'
+    #if @user.logged_in?
+      send_data @user.microbes, type: 'text/plain; charset=UTF-8', disposition: 'inline'
+    #end
   end
 
   private
   
   def user_params
-    params.require(:user).permit(:username, :uniqueid, :email, :password, :password_confirmation)
+    params.require(:user).permit(:username, :uniqueid, :email, :password, :password_confirmation, :microbes)
   end
 
   def set_user
@@ -68,7 +65,7 @@ class UsersController < ApplicationController
   end
   
   def require_same_user
-    if current_user != @user
+    if current_user != @user && !current_user.admin?
       flash[:danger] = "You can only edit your own profile"
       redirect_to root_path
     end

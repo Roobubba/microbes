@@ -18,6 +18,11 @@
       <%= f.label :password_confirmation %>
       <%= f.password_field :password_confirmation %>
       
+      <% if current_user.admin? %>
+        <%= f.label :microbes %>
+        <%= f.text_field :microbes %>
+      <% end %> 
+      
       <%= f.submit(@user.new_record? ? 'Register' : 'Edit Profile', class: "btn btn-success") %>
       <% end %>
     </div>

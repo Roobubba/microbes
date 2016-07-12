@@ -1,0 +1,15 @@
+<%= render 'shared/errors', obj: @microbe %> 
+  
+  <div class="row">
+    <div class="well col-md-8 col-md-offset-2">
+      <%= form_for @microbe do |f| %>
+      <%= f.label :name %>
+      <%= f.text_field :name %>
+
+      <%= f.label :link %>
+      <%= f.text_field :link %>
+
+      <%= f.submit(@microbe.new_record? ? 'Create New Microbe' : 'Edit Microbe', class: "btn btn-success") %>
+      <% end %>
+    </div>
+  </div>

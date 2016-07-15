@@ -1,13 +1,13 @@
-<%= render 'shared/page_title', title: "All Users" %>
+<%= render 'shared/page_title', title: "All Morphologies" %>
 
 <ul class="nav nav-tabs">
   <li>
     <%= link_to "Microbes", microbes_path %>
   </li>
-  <li  class='active'>
+  <li>
     <%= link_to "Users", users_path %>
   </li>
-  <li>
+  <li class='active'>
     <%= link_to "Morphologies", morphologies_path %>
   </li>
 </ul>
@@ -15,15 +15,14 @@
 <%= will_paginate %>
 <br>
 
-<% @users.each do |user| %>
+<% @morphologies.each do |m| %>
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-2">
-        <p>User Pic Here</p>
+        <p>Morph Pic Here</p>
       </div>
       <div class="col-md-10 well">
-        <h4><%= link_to user.username, user_path(user) %></h4>
-        <p>UniqueID: <%= user.uniqueid %></p>
+        <h4><%= link_to m.morphology, morphology_path(m) %></h4>
 
       </div>
 

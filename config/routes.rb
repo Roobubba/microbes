@@ -8,9 +8,10 @@ Rails.application.routes.draw do
   get '/getuserid/:uniqueid(.:format)', to: 'users#get_user_id'
   get '/microbes/:id(.:format)/buy', to: 'microbes#buy', as: 'buy_microbe'
   
-  resources :microbes, except: [:destroy]
+  resources :microbes
+  resources :morphologies
   
-  resources :users, except: [:new, :destroy]
+  resources :users, except: [:new]
   
   get '/register', to: 'users#new'
   

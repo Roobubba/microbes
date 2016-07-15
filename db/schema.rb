@@ -11,12 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160713131918) do
+ActiveRecord::Schema.define(version: 20160715141342) do
 
   create_table "microbes", force: :cascade do |t|
     t.string  "link"
     t.string  "name"
     t.integer "cost"
+    t.string  "fullname"
+    t.integer "morphology_id"
+  end
+
+  create_table "morphologies", force: :cascade do |t|
+    t.string "morphology"
   end
 
   create_table "users", force: :cascade do |t|

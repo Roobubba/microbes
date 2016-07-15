@@ -8,6 +8,9 @@
 
       <%= f.label :link %>
       <%= f.text_field :link %>
+      
+      <%= f.label :cost %>
+      <%= f.text_field :cost %>
 
       <%= f.submit(@microbe.new_record? ? 'Create New Microbe' : 'Edit Microbe', class: "btn btn-success") %>
       <% end %>

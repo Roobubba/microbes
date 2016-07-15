@@ -11,14 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160629160746) do
+ActiveRecord::Schema.define(version: 20160713131918) do
 
   create_table "microbes", force: :cascade do |t|
-    t.string "assetbundle"
-    t.string "assetbundle_fingerprint"
-    t.string "assetname"
-    t.string "link"
-    t.string "name"
+    t.string  "link"
+    t.string  "name"
+    t.integer "cost"
   end
 
   create_table "users", force: :cascade do |t|
@@ -30,6 +28,7 @@ ActiveRecord::Schema.define(version: 20160629160746) do
     t.string   "uniqueid"
     t.string   "email"
     t.boolean  "admin",           default: false
+    t.integer  "currency"
   end
 
 end

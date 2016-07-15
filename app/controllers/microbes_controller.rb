@@ -1,6 +1,7 @@
 class MicrobesController < ApplicationController
   
-  before_action :set_microbe, only: [:edit, :update, :show, :export]
+  before_action :set_microbe, only: [:edit, :update, :show, :export, :buy]
+  before_action :set_user, only: [:buy]
   before_action :require_user, except: [:show, :index, :export]
   before_action :admin_user, only: [:destroy, :create, :new]
   
@@ -41,7 +42,26 @@ class MicrobesController < ApplicationController
     end
   end
   
-  
+  def buy
+    if has_microbe(@microbe)
+      flash[:warning] = "Already own microbe"
+      redirect_to microbe_path(@microbe)
+      return
+    end
+    if !can_afford(@microbe)
+      flash[:warning] = "Cannot afford microbe"
+      redirect_to microbe_path(@microbe)
+      return
+    end
+    new_currency = @user.currency - @microbe.cost
+    new_microbes = @user.microbes + (2 ** (@microbe.id))
+    if @user.update(currency: new_currency, microbes: new_microbes)
+      flash[:success] = "Microbe successfully purchased"
+    else
+      flash[:warning] = "Error: could not purchase microbe!"
+    end
+      redirect_to microbe_path(@microbe)
+  end
   
   def export
     
@@ -54,12 +74,17 @@ class MicrobesController < ApplicationController
     def set_microbe
       @microbe = Microbe.find(params[:id])
     end
-   
+    
+    def set_user
+      @user = current_user
+    end
+    
     def admin_user
       redirect_to microbes_path unless current_user.admin?
     end
   
     def microbe_params
-      params.require(:microbe).permit(:assetbundle, :assetname, :link, :name)
+      params.require(:microbe).permit(:cost, :link, :name)
     end
+    
 end

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
 
   get '/microbes_dl/:id(.:format)', to: 'microbes#export', as: 'microbe_dl'
   get '/getuserid/:uniqueid(.:format)', to: 'users#get_user_id'
+  get '/microbes/:id(.:format)/buy', to: 'microbes#buy', as: 'buy_microbe'
   
   resources :microbes, except: [:destroy]
   

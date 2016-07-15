@@ -44,6 +44,28 @@
     </div>
   </div>
   
+<%= will_paginate @microbes %>
+<br>
+
+<% @microbes.each do |microbe| %>
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <p>Microbe Pic Here</p>
+      </div>
+      <div class="col-md-10 well">
+        <h4><%= link_to microbe.name, microbe_path(microbe) %></h4>
+        <p>Microbe: <%= microbe.name %></p>
+
+      </div>
+
+    </div>
+    <hr/>
+  </div>
+<% end %>
+
+<%= will_paginate @microbes %>
+  
 </div>
 
 <%= render 'shared/return_buttons' %>

@@ -11,7 +11,10 @@
 
       <div class="col-xs-12 text-center nopad">
         <div class="col-xs-12 col-sm-4 col-sm-offset-2">
-          <% if logged_in? %>
+          <% if logged_in? and can_afford(@microbe) and !has_microbe(@microbe) %>
+            <%= link_to "Buy this microbe for: " + @microbe.cost.to_s, buy_microbe_path, class: "btn btn-warning" %>
+          <% end %>
+          <% if logged_in? and current_user.admin? %>
             <%= link_to "XEdit this recipeX", edit_microbe_path, class: "btn btn-warning" %>
           <% end %>
         </div>
@@ -35,6 +38,9 @@
           </strong>
         </p>
         <%= simple_format(@microbe.name) %>
+        <p>
+          <%= simple_format(@microbe.cost.to_s) %>
+        </p>
       </div>
     </div>
   </div>

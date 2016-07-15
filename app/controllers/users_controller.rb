@@ -1,17 +1,27 @@
 class UsersController < ApplicationController
 
   before_action :set_user, only: [:edit, :update, :show]
-  before_action :require_same_user, only: [:edit, :update]
-  before_action :require_user, except: [:show, :index, :export, :get_user_id]
+  before_action :require_same_user, only: [:edit, :update, :show, :new, :create]
+  before_action :require_user, except: [:index, :export, :get_user_id, :new, :create]
   before_action :admin_user, only: [:destroy]
   
-
   def index
     @users = User.paginate(page: params[:page], per_page: 10)
   end
   
   def show
-    
+    microbe_array = Array.new
+    $i = 0
+    redirect_to(users_path) and return if @user.microbes == nil
+    while (2**($i)) <= @user.microbes do
+      if has_microbe(Microbe.find_by(id: $i))
+        microbe_array.push Microbe.find_by(id: $i)
+      end
+      $i += 1
+    end
+    @microbes = WillPaginate::Collection.create(1, 10, microbe_array.length) do |pager|
+      pager.replace(microbe_array)
+    end
   end
   
   def new
@@ -53,7 +63,7 @@ class UsersController < ApplicationController
   private
   
   def user_params
-    params.require(:user).permit(:username, :uniqueid, :email, :password, :password_confirmation, :microbes)
+    params.require(:user).permit(:username, :uniqueid, :email, :password, :password_confirmation, :microbes, :currency)
   end
 
   def set_user
@@ -66,7 +76,7 @@ class UsersController < ApplicationController
   
   def require_same_user
     if current_user != @user && !current_user.admin?
-      flash[:danger] = "You can only edit your own profile"
+      flash[:danger] = "You can only view/edit your own profile"
       redirect_to root_path
     end
   end

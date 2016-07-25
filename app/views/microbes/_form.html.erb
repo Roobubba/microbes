@@ -16,7 +16,7 @@
       <%= f.text_field :fullname %>
       
       <%= f.label :morphology_id %>
-      <%= f.collection_select :id, Morphology.order(:id),:id,:morphology, include_blank: false %>
+      <%= f.collection_select :morphology_id, Morphology.order(:id),:id,:morphology, include_blank: false %>
 
       <%= f.submit(@microbe.new_record? ? 'Create New Microbe' : 'Edit Microbe', class: "btn btn-success") %>
       <% end %>

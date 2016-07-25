@@ -1,6 +1,11 @@
 class User < ActiveRecord::Base
-  
-  before_save { self.email = email.downcase }
+
+  before_save :default_values
+  def default_values
+    self.email = email.downcase
+    self.microbes ||= 7
+    self.currency ||= 2000
+  end
 
   validates :username, presence: true, length: {minimum: 3, maximum: 40 }
   validates :uniqueid, presence: true, uniqueness: true

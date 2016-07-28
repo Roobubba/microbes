@@ -16,7 +16,7 @@ gem 'mini_magick'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate' 
 gem 'bcrypt', '3.1.11'
-gem 'fog'
+gem 'fog-aws'
 
 group :development, :test do
   gem 'byebug'

@@ -23,12 +23,17 @@
         <% if current_user.admin? %>
           <%= f.label :microbes %>
           <%= f.text_field :microbes %>
-        <% end %> 
-        
-        <% if current_user.admin? %>
+
           <%= f.label :currency %>
           <%= f.text_field :currency %>
-        <% end %> 
+
+          <%= f.label :platform %>
+          <%= f.text_field :platform %>
+
+        <% end %>
+        
+        
+        
       <% end %>
       
       <%= f.submit(@user.new_record? ? 'Register' : 'Edit Profile', class: "btn btn-success") %>

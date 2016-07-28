@@ -19,7 +19,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-2">
-        <p>Microbe Pic Here</p>
+        <%= image_tag(microbe.picture.url, size: "100x130", class: "gravatar") if microbe.picture? %>
       </div>
       <div class="col-md-10 well">
         <h4><%= link_to microbe.name, microbe_path(microbe) %></h4>

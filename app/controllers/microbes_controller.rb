@@ -2,8 +2,9 @@ class MicrobesController < ApplicationController
   
   before_action :set_microbe, only: [:edit, :update, :show, :export, :buy]
   before_action :set_user, only: [:buy]
+  before_action :set_export_user, only: [:export]
   before_action :require_user, except: [:show, :index, :export]
-  before_action :admin_user, only: [:destroy, :create, :new]
+  before_action :admin_user, only: [:destroy, :create, :new, :edit, :update]
   
   
   def index
@@ -64,8 +65,17 @@ class MicrobesController < ApplicationController
   end
   
   def export
-    
-    send_data @microbe.link, type: 'text/plain; charset=UTF-8', disposition: 'inline' #attachment; filename=mhash.xml'
+    if @user.platform == 'Windows'
+      
+      send_data URI.join(request.url, @microbe.attachment.url), type: 'text/plain; charset=UTF-8', disposition: 'inline' #attachment; filename=mhash.xml'
+      return
+    elsif @user.platform == 'Android'
+      send_data URI.join(request.url, @microbe.androidattachment.url), type: 'text/plain; charset=UTF-8', disposition: 'inline' #attachment; filename=mhash.xml'
+      return
+    else
+      flash[:warning] = "Error, @user.platform not set"
+    end
+    redirect_to microbe_path(@microbe)
 
   end
   
@@ -76,7 +86,11 @@ class MicrobesController < ApplicationController
     end
     
     def set_user
-      @user = current_user
+      @user = current_user        
+    end
+    
+    def set_export_user
+      @user = User.find_by(uniqueid: params[:uniqueid])
     end
     
     def admin_user
@@ -84,7 +98,7 @@ class MicrobesController < ApplicationController
     end
   
     def microbe_params
-      params.require(:microbe).permit(:cost, :link, :name, :fullname, :morphology_id)
+      params.require(:microbe).permit(:cost, :link, :name, :fullname, :morphology_id, :picture, :attachment, :androidattachment, :remove_picture, :remove_attachment, :remove_androidattachment)
     end
     
 end

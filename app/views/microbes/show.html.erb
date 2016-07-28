@@ -26,7 +26,7 @@
   </div>
   
   <div class="col-xs-12 col-md-4 pull-right center">
-    <p>pic here?</p>
+    <%= image_tag(@microbe.picture.url, size: "200x260", class: "gravatar") if @microbe.picture? %>
   </div>
   <div class="col-md-8">
     <div class="col-md-8 col-xs-12">

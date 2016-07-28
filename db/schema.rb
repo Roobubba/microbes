@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160715141342) do
+ActiveRecord::Schema.define(version: 20160728141743) do
 
   create_table "microbes", force: :cascade do |t|
     t.string  "link"
@@ -19,6 +19,9 @@ ActiveRecord::Schema.define(version: 20160715141342) do
     t.integer "cost"
     t.string  "fullname"
     t.integer "morphology_id"
+    t.string  "picture"
+    t.string  "attachment"
+    t.string  "androidattachment"
   end
 
   create_table "morphologies", force: :cascade do |t|
@@ -35,6 +38,7 @@ ActiveRecord::Schema.define(version: 20160715141342) do
     t.string   "email"
     t.boolean  "admin",           default: false
     t.integer  "currency"
+    t.string   "platform",        default: "Windows"
   end
 
 end

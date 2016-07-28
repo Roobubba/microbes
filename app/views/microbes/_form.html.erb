@@ -2,7 +2,7 @@
   
   <div class="row">
     <div class="well col-md-8 col-md-offset-2">
-      <%= form_for @microbe do |f| %>
+      <%= form_for(@microbe, html: {multipart: true }) do |f| %>
       <%= f.label :name %>
       <%= f.text_field :name %>
 
@@ -17,8 +17,35 @@
       
       <%= f.label :morphology_id %>
       <%= f.collection_select :morphology_id, Morphology.order(:id),:id,:morphology, include_blank: false %>
+      
+      <span class="picture">
+        <p>Picture:</p>
+        <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+        <p class="checkbox inline left"><%= f.check_box :remove_picture %> Remove Picture </p>
+      </span>
 
+      <span class="picture">
+        <p>Windows Asset File:</p>
+        <%= f.file_field :attachment %>
+        <p class="checkbox inline left"><%= f.check_box :remove_attachment %> Remove Windows Asset </p>
+      </span>
+
+      <span class="picture">
+        <p>Android Asset File:</p>
+        <%= f.file_field :androidattachment %>
+        <p class="checkbox inline left"><%= f.check_box :remove_androidattachment %> Remove Android Asset </p>
+      </span>
+      
       <%= f.submit(@microbe.new_record? ? 'Create New Microbe' : 'Edit Microbe', class: "btn btn-success") %>
       <% end %>
     </div>
   </div>
+  
+<script type="text/javascript">
+  $('#microbe_picture').bind('change', function(){
+    size_in_megabytes = this.files[0].size/1024/1024;
+    if (size_in_megabytes > 2) {
+      alert('Maximum file size is 2MB. Please choose a smaller file');
+    }
+  });
+</script>

@@ -7,10 +7,10 @@ class User < ActiveRecord::Base
     self.currency ||= 2000
   end
 
-  validates :username, presence: true, length: {minimum: 3, maximum: 40 }
+  validates :username, length: {minimum: 3, maximum: 40 }
   validates :uniqueid, presence: true, uniqueness: true
   VALID_EMAIL_REGEX = /\A([\w+\-].?)+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
-  validates :email, presence: true, length: { maximum: 105 },
+  validates :email, length: { maximum: 105 },
                                     uniqueness: { case_sensitive: false },
                                     format: {with: VALID_EMAIL_REGEX }
   

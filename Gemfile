@@ -11,12 +11,12 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-gem 'carrierwave'
+gem 'carrierwave-aws'
 gem 'mini_magick'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate' 
 gem 'bcrypt', '3.1.11'
-gem 'fog-aws'
+gem 'fog-aws', '0.9.2'
 
 group :development, :test do
   gem 'byebug'

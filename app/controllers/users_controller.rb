@@ -55,9 +55,13 @@ class UsersController < ApplicationController
   
   def get_user_id
     @user = User.find_by(uniqueid: params[:uniqueid])
+    if @user == nil
+      send_data 'register', type: 'text/plain; charset=UTF-8', disposition: 'inline'
+      #Send specific request for app to create an account - need WWWForm
+    else
     #if @user.logged_in?
       send_data @user.microbes, type: 'text/plain; charset=UTF-8', disposition: 'inline'
-    #end
+    end
   end
 
   private
@@ -65,7 +69,7 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :uniqueid, :email, :password, :password_confirmation, :microbes, :currency, :platform)
   end
-
+  
   def set_user
     @user = User.find(params[:id])
   end

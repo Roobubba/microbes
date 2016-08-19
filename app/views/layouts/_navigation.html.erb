@@ -29,7 +29,7 @@
   	  				<%= link_to '#', class: "dropdown-toggle", "data-toggle" => "dropdown" do %>
   	  					<%= current_user.username %><b class="caret"></b>
   	  				<% end %>
-  	  					<ul class="dropdown-menu pull-right">
+  	  				<ul class="dropdown-menu pull-right">
   	  						<li><%= link_to "View profile", user_path(current_user) %></li>
   	  						<li><%= link_to "Edit profile", edit_user_path(current_user) %></li>
   	  						<li class="divider"></li>

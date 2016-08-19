@@ -17,6 +17,7 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate' 
 gem 'bcrypt', '3.1.11'
 gem 'fog-aws', '0.9.2'
+gem 'google-api-client', '~> 0.9'
 
 group :development, :test do
   gem 'byebug'

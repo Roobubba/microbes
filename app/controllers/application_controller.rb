@@ -1,8 +1,15 @@
 class ApplicationController < ActionController::Base
+  include GoogleHelper
+  
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  
   protect_from_forgery with: :exception
+  
+  GOOGLE_CLIENT_ID = ENV["GOOGLE_CLIENT_ID"]
+  GOOGLE_SECRET = ENV["GOOGLE_SECRET"]
+  GOOGLE_SCOPE = 'https://www.googleapis.com/auth/games'#'https://www.googleapis.com/auth/userinfo.profile https://www.googleapis.com/auth/userinfo.email https://www.googleapis.com/auth/games'
+  BASEURL = ENV["BASEURL"]
+  GOOGLE_APP_ID = ENV["GOOGLE_APP_ID"]
   
   helper_method :current_user, :logged_in?, :can_afford, :has_microbe
   
@@ -13,7 +20,7 @@ class ApplicationController < ActionController::Base
   def logged_in?
     !!current_user
   end
-  
+      
   def require_user
     if !logged_in?
       flash[:danger] = "You must be logged in to perform that action"
@@ -28,7 +35,7 @@ class ApplicationController < ActionController::Base
   def has_microbe(microbe)
     true if ((current_user.microbes.to_i & (2 ** (microbe.id.to_i))) == (2 ** (microbe.id.to_i)))
   end
-  
+
   private 
   
     def redirect_back_or_failsafe(user_loc)

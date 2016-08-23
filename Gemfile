@@ -17,7 +17,11 @@ gem 'will_paginate'
 gem 'bootstrap-will_paginate' 
 gem 'bcrypt', '3.1.11'
 gem 'fog-aws', '0.9.2'
-gem 'google-api-client', '~> 0.9'
+gem 'json'
+#gem 'omniauth-google-oauth2'
+#gem 'devise'
+gem 'google-api-client', '~> 0.9', require: 'google/apis/games_v1'
+gem 'signet', require: 'signet/oauth_2/client'
 
 group :development, :test do
   gem 'byebug'

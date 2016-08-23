@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160728141743) do
+ActiveRecord::Schema.define(version: 20160819151028) do
 
   create_table "microbes", force: :cascade do |t|
     t.string  "link"
@@ -39,6 +39,9 @@ ActiveRecord::Schema.define(version: 20160728141743) do
     t.boolean  "admin",           default: false
     t.integer  "currency"
     t.string   "platform",        default: "Windows"
+    t.string   "access_token"
+    t.string   "refresh_token"
+    t.datetime "expires_at"
   end
 
 end

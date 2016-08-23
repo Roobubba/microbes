@@ -13,13 +13,13 @@ Rails.application.routes.draw do
   resources :microbes
   resources :morphologies
   
-  resources :users, except: [:new]
-  
-  get '/register', to: 'users#new'
+  resources :users, except: [:new, :create]
 
-  get '/login', to: 'logins#new'
-  post '/login', to: 'logins#create'
-  get '/logout', to: 'logins#destroy'
+  post '/authHBSMHS', to: 'sessions#create'
+
+  get '/login', to: 'sessions#new', as: 'login'
+  get '/oauth2gcallback', to: 'sessions#create'
+  get '/logout', to: 'sessions#destroy', as: 'logout'
   
 
 end

@@ -253,6 +253,7 @@ DEPENDENCIES
   google-api-client (~> 0.9)
   jbuilder (~> 2.0)
   jquery-rails
+  json
   mini_magick
   pg
   pry
@@ -260,6 +261,7 @@ DEPENDENCIES
   rails_12factor
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
+  signet
   spring
   sqlite3
   turbolinks

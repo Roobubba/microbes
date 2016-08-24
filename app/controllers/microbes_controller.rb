@@ -1,8 +1,7 @@
 class MicrobesController < ApplicationController
   
-  before_action :set_microbe, only: [:edit, :update, :show, :export, :buy]
+  before_action :set_microbe, only: [:edit, :update, :show, :exportandroid, :exportwindows, :buy]
   before_action :set_user, only: [:buy]
-  before_action :set_export_user, only: [:export]
   before_action :require_user, except: [:show, :index, :export]
   before_action :admin_user, only: [:destroy, :create, :new, :edit, :update]
   
@@ -64,18 +63,34 @@ class MicrobesController < ApplicationController
       redirect_to microbe_path(@microbe)
   end
   
-  def export
-    if @user.platform == 'Windows'
-      
-      send_data URI.join(request.url, @microbe.attachment.url), type: 'text/plain; charset=UTF-8', disposition: 'inline' #attachment; filename=mhash.xml'
-      return
-    elsif @user.platform == 'Android'
-      send_data URI.join(request.url, @microbe.androidattachment.url), type: 'text/plain; charset=UTF-8', disposition: 'inline' #attachment; filename=mhash.xml'
+  def exportwindows
+    user = current_user
+    access_token = user.access_token
+    if !valid_token?(access_token)
+      access_token = refresh_token(user.id)
+    end
+    if (valid_token?(access_token))
+      send_data URI.join(request.url, @microbe.attachment.url), type: 'text/plain; charset=UTF-8', disposition: 'inline'
       return
     else
-      flash[:warning] = "Error, @user.platform not set"
+      flash[:warning] = "Error with user authentication"
     end
-    redirect_to microbe_path(@microbe)
+    redirect_to root_path
+  end
+  
+  def exportandroid
+    user = current_user
+    access_token = user.access_token
+    if !valid_token?(access_token)
+      access_token = refresh_token(user.id)
+    end
+    if (valid_token?(access_token))
+      send_data URI.join(request.url, @microbe.androidattachment.url), type: 'text/plain; charset=UTF-8', disposition: 'inline'
+      return
+    else
+      flash[:warning] = "Error with user authentication"
+    end
+    redirect_to root_path
 
   end
   
@@ -87,10 +102,6 @@ class MicrobesController < ApplicationController
     
     def set_user
       @user = current_user        
-    end
-    
-    def set_export_user
-      @user = User.find_by(uniqueid: params[:uniqueid])
     end
     
     def admin_user

@@ -31,21 +31,36 @@ module GoogleHelper
 
   end
   
+  def login_or_create_user(client)
+    
+    if !client.access_token or !valid_token?(client.access_token)
+      access_token = client.fetch_access_token!
+    else
+      access_token = client.access_token
+    end
+    
+    # Get user tokens from GoogleHelper
+    refresh_token = client.refresh_token
+
+    # Get the username from Google
+    google_app_id = ApplicationController::GOOGLE_APP_ID
+    user_id = call_api('/games/v1/applications/' + google_app_id + '/verify/', access_token['access_token'])
+    
+    user = User.find_by(:uniqueid => user_id['player_id'])#user_info['id']).first
+    # Create the user if they don't exist
+    if(user == nil)
+      user = User.create(:username => 'Player', :uniqueid => user_id['player_id'], :refresh_token => refresh_token, :access_token => access_token['access_token'])
+      session[:user_id] = user.id
+    else
+      user.update(:access_token => access_token['access_token'])
+      session[:user_id] = user.id
+    end
+    user
+  end
+
+  
   def call_api(path, access_token)
 
-    #client_info = {
-    #  :client_id => ENV["GOOGLE_CLIENT_ID"],
-    #  :client_secret => ENV["GOOGLE_SECRET"],
-    #  :token_credential_uri => 'https://www.googleapis.com/auth/games',
-    #  :redirect_uri => ApplicationController::BASEURL + 'oauth2gcallback',
-    #  :access_token => access_token
-    #}
-    #client = Signet::OAuth2::Client.new(client_info) #access_token: access_token)
-    #game = Google::Apis::GamesV1::GamesService.new
-    #game.authorization = client
-    #player = game.verify_application(ENV["GOOGLE_APP_ID"])
-    
-    #player.playerId.to_s
     url = URI.parse('https://www.googleapis.com')
     http = Net::HTTP.new(url.host, url.port)
     http.use_ssl = true
@@ -115,5 +130,6 @@ module GoogleHelper
     user_tokens['access_token']
   
   end
+  
   
 end

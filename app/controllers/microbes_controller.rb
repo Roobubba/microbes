@@ -1,8 +1,8 @@
 class MicrobesController < ApplicationController
   
   before_action :set_microbe, only: [:edit, :update, :show, :exportandroid, :exportwindows, :buy]
-  before_action :set_user, only: [:buy]
-  before_action :require_user, except: [:show, :index, :export]
+  before_action :set_user, only: [:buy, :exportandroid, :exportwindows]
+  before_action :require_user, except: [:show, :index]
   before_action :admin_user, only: [:destroy, :create, :new, :edit, :update]
   
   
@@ -64,34 +64,39 @@ class MicrobesController < ApplicationController
   end
   
   def exportwindows
-    user = current_user
-    access_token = user.access_token
-    if !valid_token?(access_token)
-      access_token = refresh_token(user.id)
-    end
+    access_token = @user.access_token
     if (valid_token?(access_token))
       send_data URI.join(request.url, @microbe.attachment.url), type: 'text/plain; charset=UTF-8', disposition: 'inline'
       return
     else
-      flash[:warning] = "Error with user authentication"
+      access_token = refresh_token(@user.id)
+      if (valid_token?(access_token))
+        send_data URI.join(request.url, @microbe.attachment.url), type: 'text/plain; charset=UTF-8', disposition: 'inline'
+        return
+      else
+        send_data "Auth Error", type: 'text/plain; charset=UTF-8', disposition: 'inline'
+        flash[:warning] = "Error with user authentication"
+      end
     end
     redirect_to root_path
   end
   
   def exportandroid
-    user = current_user
-    access_token = user.access_token
-    if !valid_token?(access_token)
-      access_token = refresh_token(user.id)
-    end
+    access_token = @user.access_token
     if (valid_token?(access_token))
       send_data URI.join(request.url, @microbe.androidattachment.url), type: 'text/plain; charset=UTF-8', disposition: 'inline'
       return
     else
-      flash[:warning] = "Error with user authentication"
+      access_token = refresh_token(@user.id)
+      if (valid_token?(access_token))
+        send_data URI.join(request.url, @microbe.androidattachment.url), type: 'text/plain; charset=UTF-8', disposition: 'inline'
+        return
+      else
+        send_data "Auth Error", type: 'text/plain; charset=UTF-8', disposition: 'inline'
+        flash[:warning] = "Error with user authentication"
+      end
     end
     redirect_to root_path
-
   end
   
   private

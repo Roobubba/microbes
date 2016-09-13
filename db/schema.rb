@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160819151028) do
+ActiveRecord::Schema.define(version: 20160908151434) do
 
   create_table "microbes", force: :cascade do |t|
     t.string  "link"
@@ -22,6 +22,9 @@ ActiveRecord::Schema.define(version: 20160819151028) do
     t.string  "picture"
     t.string  "attachment"
     t.string  "androidattachment"
+    t.string  "microbe_hash"
+    t.string  "attachment_fingerprint"
+    t.string  "androidattachment_fingerprint"
   end
 
   create_table "morphologies", force: :cascade do |t|

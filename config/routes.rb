@@ -18,6 +18,10 @@ Rails.application.routes.draw do
 
   post '/authHBSMHS', to: 'sessions#game'
 
+  #post '/authHBSMHS', to: 'sessions#testing'
+  #get '/authHBSMHS', to: 'sessions#testing'
+  #get '/microbes_dl/testingWindows/:id(.:format)', to: 'microbes#exporttestingwindows', as: 'microbe_dl_testingwindows'
+  
   get '/login', to: 'sessions#new', as: 'login'
   get '/oauth2gcallback', to: 'sessions#create'
   get '/logout', to: 'sessions#destroy', as: 'logout'

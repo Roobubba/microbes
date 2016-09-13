@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   
   include GoogleHelper
+  include MicrobeHelper
 
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
@@ -29,14 +30,6 @@ class ApplicationController < ActionController::Base
     end
   end
   
-  def can_afford(microbe)
-    true if microbe.cost <= current_user.currency
-  end
-  
-  def has_microbe(microbe)
-    true if ((current_user.microbes.to_i & (2 ** (microbe.id.to_i))) == (2 ** (microbe.id.to_i)))
-  end
-
   private 
   
     def redirect_back_or_failsafe(user_loc)

@@ -34,13 +34,14 @@ class SessionsController < ApplicationController
           microbe_hash["HASH-" + i.to_s] = microbe.androidattachment_fingerprint.to_s
           url_b = microbe.androidattachment.url.to_s
         end
+        microbe_hash["Test1-" + i.to_s] = url_b.to_s
         
         if Rails.env.production?
           url = get_new_aws_resource_url(url_b).to_s
         else
           url = URI.join(request.url, url_b).to_s
         end
-          
+        microbe_hash["Test2-" + i.to_s] = url.to_s  
         microbe_hash["DYNLINK-" + i.to_s] = url.to_s
 
         #microbe_hash["VERSION-" + i.to_s] = microbe.microbe_hash.to_s

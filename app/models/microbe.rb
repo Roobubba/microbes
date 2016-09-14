@@ -4,10 +4,11 @@ class Microbe < ActiveRecord::Base
   require 'digest/md5'
 
   before_save :perform_fingerprinting
+  
   def perform_fingerprinting
-    self.attachment_fingerprint = Digest::MD5.hexdigest(File.read(self.attachment.path))
-    self.androidattachment_fingerprint = Digest::MD5.hexdigest(File.read(self.androidattachment.path))
-    self.link = File.basename(self.androidattachment.path)
+    self.attachment_fingerprint = Digest::MD5.hexdigest(File.read(self.attachment.path)) if self.attachment_fingerprint == nil
+    self.androidattachment_fingerprint = Digest::MD5.hexdigest(File.read(self.androidattachment.path)) if self.androidattachment_fingerprint == nil
+    self.link = File.basename(self.androidattachment.path) if self.link == nil
   end
 
   validates :name, presence: true, length: {minimum: 3, maximum: 40 }

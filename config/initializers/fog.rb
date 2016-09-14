@@ -9,7 +9,7 @@ if Rails.env.production?
     }
     
     config.aws_bucket = ENV['S3_BUCKET']
-    config.aws_acl = :public_read
+    config.aws_acl = :private
     #config.fog_directory = ENV['S3_BUCKET']
     #config.fog_public = false
   end

@@ -29,19 +29,14 @@ class SessionsController < ApplicationController
         
         if (platform == "Windows")
           microbe_hash["HASH-" + i.to_s] = microbe.attachment_fingerprint.to_s
-          url_b = microbe.attachment.path
+          url = microbe.attachment.path
         elsif (platform == "Android")
           microbe_hash["HASH-" + i.to_s] = microbe.androidattachment_fingerprint.to_s
-          url_b = microbe.androidattachment.path
+          url = microbe.androidattachment.path
         end
-        microbe_hash["Test1-" + i.to_s] = url_b
+        microbe_hash["Test1-" + i.to_s] = url
         
-        if Rails.env.production?
-          url = get_new_aws_resource_url(url_b)
-        else
-          url = URI.join(request.url, url_b)
-        end
-        microbe_hash["Test2-" + i.to_s] = url
+        microbe_hash["Test2-" + i.to_s] = url_for(url)
         microbe_hash["DYNLINK-" + i.to_s] = url
 
         #microbe_hash["VERSION-" + i.to_s] = microbe.microbe_hash.to_s

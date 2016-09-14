@@ -10,6 +10,7 @@ if Rails.env.production?
     
     config.aws_bucket = ENV['S3_BUCKET']
     config.aws_acl = :private
+    config.aws_authenticated_url_expiration = 600
     #config.fog_directory = ENV['S3_BUCKET']
     #config.fog_public = false
   end

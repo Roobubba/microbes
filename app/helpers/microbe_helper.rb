@@ -26,9 +26,9 @@ module MicrobeHelper
         end
         
         if Rails.env.production?
-          url = get_new_aws_resource_url(url_b)
+          url = get_new_aws_resource_url(url_b).to_s
         else
-          url = URI.join(request.url, url_b)
+          url = URI.join(request.url, url_b).to_s
         end
         
         microbe_hash["DYNLINK-" + i.to_s] = url.to_s  

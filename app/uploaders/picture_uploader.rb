@@ -15,7 +15,7 @@ class PictureUploader < CarrierWave::Uploader::Base
   end
   
   def aws_acl
-    :public_read
+    "public_read"
   end
   
 

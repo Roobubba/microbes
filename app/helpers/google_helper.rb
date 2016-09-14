@@ -27,7 +27,7 @@ module GoogleHelper
       :authorization_uri => 'https://accounts.google.com/o/oauth2/auth',
       :additional_parameters => {"access_type" => "offline"}
     }
-    client = Signet::OAuth2::Client.new(client_info)
+    Signet::OAuth2::Client.new(client_info)
 
   end
   

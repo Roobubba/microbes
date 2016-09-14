@@ -7,13 +7,17 @@ class SessionsController < ApplicationController
   end
 
   def game
-    client = get_new_client(params['code'])
-    user = login_or_create_user(client)
-    microbes = get_microbes_belonging_to(user)
-    send_data microbes.to_xml, type: 'text/plain; charset=UTF-8', disposition: 'inline'
+    if (params['code'] == 'testing')
+      testing(params['plat'])
+    else
+      client = get_new_client(params['code'])
+      user = login_or_create_user(client)
+      microbes = get_microbes_belonging_to(user, params['plat'])
+      send_data microbes.to_xml, type: 'text/plain; charset=UTF-8', disposition: 'inline'
+    end
   end
 
-  def testing
+  def testing(platform)
     user = User.first
     microbe_int = user.microbes
     microbe_hash = Hash.new
@@ -22,8 +26,23 @@ class SessionsController < ApplicationController
     while ((2 ** i) <= microbe_int)
       microbe = Microbe.find(i)
       if (test_has_microbe(microbe, user))
-        microbe_hash["MICROBEWINDOWSHASH-" + i.to_s] = microbe.attachment_fingerprint.to_s
-        microbe_hash["MICROBEANDROIDHASH-" + i.to_s] = microbe.androidattachment_fingerprint.to_s
+        
+        if (platform == "Windows")
+          microbe_hash["HASH-" + i.to_s] = microbe.attachment_fingerprint.to_s
+          url_b = microbe.attachment.url.to_s
+        elsif (platform == "Android")
+          microbe_hash["HASH-" + i.to_s] = microbe.androidattachment_fingerprint.to_s
+          url_b = microbe.androidattachment.url.to_s
+        end
+        
+        if Rails.env.production?
+          url = get_new_aws_resource_url(url_b)
+        else
+          url = URI.join(request.url, url_b)
+        end
+          
+        microbe_hash["DYNLINK-" + i.to_s] = url.to_s
+
         #microbe_hash["VERSION-" + i.to_s] = microbe.microbe_hash.to_s
         microbe_hash["FILENAME-" + i.to_s] = microbe.link.to_s
         microbe_hash["NAME-" + i.to_s] = microbe.name.to_s

@@ -35,13 +35,13 @@ class SessionsController < ApplicationController
           url_b = microbe.androidattachment.url.to_s
         end
         
-        #if Rails.env.production?
-        #  url = get_new_aws_resource_url(url_b)
-        #else
-        #  url = URI.join(request.url, url_b)
-        #end
+        if Rails.env.production?
+          url = get_new_aws_resource_url(url_b)
+        else
+          url = URI.join(request.url, url_b)
+        end
           
-        microbe_hash["DYNLINK-" + i.to_s] = url_bto_s
+        microbe_hash["DYNLINK-" + i.to_s] = url.to_s
 
         #microbe_hash["VERSION-" + i.to_s] = microbe.microbe_hash.to_s
         microbe_hash["FILENAME-" + i.to_s] = microbe.link.to_s

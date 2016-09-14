@@ -5,6 +5,7 @@ class Microbe < ActiveRecord::Base
 
   before_save :perform_fingerprinting
   
+  #REALLY don't like this here. Want to get the proper URL from S3 for the file read if it has already been uploaded.
   def perform_fingerprinting
     self.attachment_fingerprint = Digest::MD5.hexdigest(File.read(self.attachment.path)) if self.attachment_fingerprint == nil
     self.androidattachment_fingerprint = Digest::MD5.hexdigest(File.read(self.androidattachment.path)) if self.androidattachment_fingerprint == nil

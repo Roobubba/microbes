@@ -34,10 +34,10 @@ class SessionsController < ApplicationController
           microbe_hash["HASH-" + i.to_s] = microbe.androidattachment_fingerprint.to_s
           url = microbe.androidattachment.path
         end
-        #url2 = get_new_aws_resource_url(url)
-        url3 = url.to_s
-        url4 = CGI.unescape(url3)
-        microbe_hash["Test1-" + i.to_s] = url
+        url2 = get_new_aws_resource_url(url)
+        url3 = url2.to_s
+        url4 = CGI.unescape(url2)
+        microbe_hash["Test1-" + i.to_s] = url2
         
         microbe_hash["Test2-" + i.to_s] = url3
         microbe_hash["DYNLINK-" + i.to_s] = url4

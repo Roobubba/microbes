@@ -29,19 +29,13 @@ class SessionsController < ApplicationController
         
         if (platform == "Windows")
           microbe_hash["HASH-" + i.to_s] = microbe.attachment_fingerprint.to_s
-          url = microbe.attachment.path
+          url = get_new_aws_resource_url(microbe.attachment.path)
         elsif (platform == "Android")
           microbe_hash["HASH-" + i.to_s] = microbe.androidattachment_fingerprint.to_s
-          url = microbe.androidattachment.path
+          url = get_new_aws_resource_url(microbe.androidattachment.path)
         end
-        url2 = get_new_aws_resource_url(url)
-        url3 = url2.to_s
-        url4 = CGI.unescape(url2)
-        microbe_hash["Test1-" + i.to_s] = url2
-        
-        microbe_hash["Test2-" + i.to_s] = url3
-        microbe_hash["DYNLINK-" + i.to_s] = url4
 
+        microbe_hash["DYNLINK-" + i.to_s] = url
         #microbe_hash["VERSION-" + i.to_s] = microbe.microbe_hash.to_s
         microbe_hash["FILENAME-" + i.to_s] = microbe.link.to_s
         microbe_hash["NAME-" + i.to_s] = microbe.name.to_s

@@ -29,14 +29,14 @@ class SessionsController < ApplicationController
         
         if (platform == "Windows")
           microbe_hash["HASH-" + i.to_s] = microbe.attachment_fingerprint.to_s
-          url = microbe.attachment.path
+          url = microbe.attachment.presigned_url(:get, expires_in: 1*20.minutes)
         elsif (platform == "Android")
           microbe_hash["HASH-" + i.to_s] = microbe.androidattachment_fingerprint.to_s
-          url = microbe.androidattachment.path
+          url = microbe.androidattachment.presigned_url(:get, expires_in: 1*20.minutes)
         end
         microbe_hash["Test1-" + i.to_s] = url
         
-        microbe_hash["Test2-" + i.to_s] = url_for(url)
+        microbe_hash["Test2-" + i.to_s] = url.to_s
         microbe_hash["DYNLINK-" + i.to_s] = url
 
         #microbe_hash["VERSION-" + i.to_s] = microbe.microbe_hash.to_s

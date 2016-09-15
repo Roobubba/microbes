@@ -6,8 +6,10 @@ module MicrobeHelper
     #  :secret_access_key => ENV['S3_SECRET_KEY'],
     #  :region => ENV['S3_REGION'])
     #aws_resource.bucket(ENV['S3_BUCKET']).object(file).presigned_url(:get, expires_in: 1*20.minutes)
-    download_url(file)
+    url(response_content_disposition: %Q{attachment; filename="#{file}"})
   end
+    
+
   
   def get_microbes_belonging_to(user, platform)
     microbe_int = user.microbes

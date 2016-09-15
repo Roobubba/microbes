@@ -1,12 +1,11 @@
 module MicrobeHelper
 
   def get_new_aws_resource_url(file)
-    #aws_resource = Aws::S3::Resource::new(
-    #  :access_key_id => ENV['S3_ACCESS_KEY'],
-    #  :secret_access_key => ENV['S3_SECRET_KEY'],
-    #  :region => ENV['S3_REGION'])
-    #aws_resource.bucket(ENV['S3_BUCKET']).object(file).presigned_url(:get, expires_in: 1*20.minutes)
-    url(response_content_disposition: %Q{attachment; filename="#{file}"})
+    aws_resource = Aws::S3::Resource::new(
+      :access_key_id => ENV['S3_ACCESS_KEY'],
+      :secret_access_key => ENV['S3_SECRET_KEY'],
+      :region => ENV['S3_REGION'])
+    aws_resource.bucket(ENV['S3_BUCKET']).object(file).presigned_url(:get, expires_in: 1*20.minutes)
   end
     
 

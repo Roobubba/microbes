@@ -21,10 +21,10 @@ module MicrobeHelper
 
         if (platform == "Windows")
           microbe_hash["HASH-" + i.to_s] = microbe.attachment_fingerprint.to_s
-          url = get_new_aws_resource_url(microbe.attachment.path)
+          url = CGI.unescape(get_new_aws_resource_url(microbe.attachment.path))
         elsif (platform == "Android")
           microbe_hash["HASH-" + i.to_s] = microbe.androidattachment_fingerprint.to_s
-          url = get_new_aws_resource_url(microbe.androidattachment.path)
+          url = CGI.unescape(get_new_aws_resource_url(microbe.androidattachment.path))
         end
 
         microbe_hash["DYNLINK-" + i.to_s] = url

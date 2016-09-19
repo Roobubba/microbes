@@ -16,5 +16,8 @@ if Rails.env.production?
       cache_control: 'max-age=604800'
     }
 
+    config.aws_signer = -> (unsigned_url, options) do
+      Aws::CF::Signer.sign_url(unsigned_url, options)
+    end
   end
 end

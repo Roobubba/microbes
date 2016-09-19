@@ -13,6 +13,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'carrierwave'
 gem 'carrierwave-aws'
+gem 'cloudfront-signer'
 gem 'mini_magick'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate' 

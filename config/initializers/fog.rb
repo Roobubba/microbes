@@ -15,7 +15,7 @@ if Rails.env.production?
       expires: 1.week.from_now.httpdate,
       cache_control: 'max-age=604800'
     }
-
+    config.asset_host = "https://dxu41j7h325w.cloudfront.net"
     config.aws_signer = -> (unsigned_url, options) do
       Aws::CF::Signer.sign_url(unsigned_url, options)
     end

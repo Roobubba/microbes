@@ -13,7 +13,11 @@ class PictureUploader < CarrierWave::Uploader::Base
   else
     storage :file
   end
-
+  
+  def aws_acl
+    "public-read"
+  end
+  
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:

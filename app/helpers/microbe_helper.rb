@@ -1,7 +1,7 @@
 module MicrobeHelper
 
   def get_new_aws_resource_url(file)
-    Aws::CF::Signer.sign_url file
+    Aws::CF::Signer.sign_url("https://dxu41j7h325w.cloudfront.net/" + file)
     #aws_resource = Aws::S3::Resource::new(
     #  :access_key_id => ENV['S3_ACCESS_KEY'],
     #  :secret_access_key => ENV['S3_SECRET_KEY'],

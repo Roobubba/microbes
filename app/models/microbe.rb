@@ -3,12 +3,12 @@ class Microbe < ActiveRecord::Base
   
   require 'digest/md5'
 
-  after_commit :perform_fingerprinting
+  before_save :perform_fingerprinting
   
   #REALLY don't like this here. Want to get the proper URL from S3 for the file read if it has already been uploaded.
   def perform_fingerprinting
-    self.attachment_fingerprint = Digest::MD5.hexdigest(File.read("https://dxu41j7h325w.cloudfront.net/" + self.attachment.path))# if self.attachment_fingerprint == ""
-    self.androidattachment_fingerprint = Digest::MD5.hexdigest(File.read("https://dxu41j7h325w.cloudfront.net/" + self.attachment.path))# if self.androidattachment_fingerprint == ""
+    self.attachment_fingerprint = Digest::MD5.hexdigest(File.read(self.attachment.url))# if self.attachment_fingerprint == ""
+    self.androidattachment_fingerprint = Digest::MD5.hexdigest(File.read(self.androidattachment.url))# if self.androidattachment_fingerprint == ""
     self.link = File.basename(self.androidattachment.path)# if self.link == ""
   end
 

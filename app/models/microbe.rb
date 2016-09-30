@@ -9,7 +9,8 @@ class Microbe < ActiveRecord::Base
   def perform_fingerprinting
     self.attachment_fingerprint = Digest::MD5.hexdigest(File.read(self.attachment.path))# if self.attachment_fingerprint == ""
     self.androidattachment_fingerprint = Digest::MD5.hexdigest(File.read(self.androidattachment.path))# if self.androidattachment_fingerprint == ""
-    self.link = File.basename(self.androidattachment.path)# if self.link == ""
+    self.link = File.basename(self.androidattachment.path).split("_").first
+
   end
 
   validates :name, presence: true, length: {minimum: 3, maximum: 40 }

@@ -79,7 +79,7 @@ class MicrobesController < ApplicationController
     end
   
     def microbe_params
-      params.require(:microbe).permit(:cost, :link, :name, :fullname, :morphology_id, :picture, :attachment, :androidattachment, :remove_picture, :remove_attachment, :remove_androidattachment)
+      params.require(:microbe).permit(:cost, :link, :name, :fullname, :morphology_id, :gram_status, :dimensions, :number_genes, :pathogenic, :picture, :attachment, :androidattachment, :remove_picture, :remove_attachment, :remove_androidattachment)
     end
     
 end

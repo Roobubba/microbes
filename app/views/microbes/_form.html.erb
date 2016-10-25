@@ -15,6 +15,18 @@
       <%= f.label :fullname %>
       <%= f.text_field :fullname %>
       
+      <%= f.label :gram_status %>
+      <%= f.text_field :gram_status %>
+      
+      <%= f.label :number_genes %>
+      <%= f.text_field :number_genes %>
+      
+      <%= f.label :pathogenic %>
+      <%= f.text_field :pathogenic %>
+      
+      <%= f.label :dimensions %>
+      <%= f.text_field :dimensions %>
+      
       <%= f.label :morphology_id %>
       <%= f.collection_select :morphology_id, Morphology.order(:id),:id,:morphology, include_blank: false %>
       

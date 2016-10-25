@@ -35,7 +35,7 @@ module MicrobeHelper
         microbe_hash["FULLNAME-" + i.to_s] = microbe.fullname.to_s
         microbe_hash["MORPHOLOGY-" + i.to_s] = Morphology.find(microbe.morphology_id).morphology.to_s
         microbe_hash["GRAM-" + i.to_s] = microbe.gram_status.to_s
-        microbe_hash["NUM_GENES-" + i.to_s] = microbe.number_genes.to_s
+        microbe_hash["NUMGENES-" + i.to_s] = microbe.number_genes.to_s
         microbe_hash["PATHOGENIC-" + i.to_s] = microbe.pathogenic.to_s
         microbe_hash["DIMENSIONS-" + i.to_s] = microbe.dimensions.to_s
       end
